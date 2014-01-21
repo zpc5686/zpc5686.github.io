@@ -4,7 +4,7 @@
   <title><![CDATA[Roc's blog]]></title>
   <link href="http://zpc5686.github.io/atom.xml" rel="self"/>
   <link href="http://zpc5686.github.io/"/>
-  <updated>2014-01-21T14:23:23+08:00</updated>
+  <updated>2014-01-21T14:25:46+08:00</updated>
   <id>http://zpc5686.github.io/</id>
   <author>
     <name><![CDATA[Roc]]></name>
@@ -18,15 +18,6 @@
     <link href="http://zpc5686.github.io/blog/2014/01/21/test/"/>
     <updated>2014-01-21T14:23:13+08:00</updated>
     <id>http://zpc5686.github.io/blog/2014/01/21/test</id>
-    <content type="html"><![CDATA[
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Post Test]]></title>
-    <link href="http://zpc5686.github.io/blog/2014/01/21/post-test/"/>
-    <updated>2014-01-21T00:00:00+08:00</updated>
-    <id>http://zpc5686.github.io/blog/2014/01/21/post-test</id>
     <content type="html"><![CDATA[<p>this is a test</p>
 ]]></content>
   </entry>
