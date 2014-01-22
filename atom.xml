@@ -4,7 +4,7 @@
   <title><![CDATA[Roc's blog]]></title>
   <link href="http://zpc5686.github.io/atom.xml" rel="self"/>
   <link href="http://zpc5686.github.io/"/>
-  <updated>2014-01-21T15:11:30+08:00</updated>
+  <updated>2014-01-22T14:22:44+08:00</updated>
   <id>http://zpc5686.github.io/</id>
   <author>
     <name><![CDATA[Roc]]></name>
@@ -19,6 +19,8 @@
     <updated>2014-01-21T14:34:44+08:00</updated>
     <id>http://zpc5686.github.io/blog/2014/01/21/fff</id>
     <content type="html"><![CDATA[<p>地方的发放的测试</p>
+
+<h2>开始用markdown写博客</h2>
 ]]></content>
   </entry>
   
