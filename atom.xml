@@ -4,7 +4,7 @@
   <title><![CDATA[Roc's blog]]></title>
   <link href="http://zpc5686.github.io/atom.xml" rel="self"/>
   <link href="http://zpc5686.github.io/"/>
-  <updated>2014-08-22T00:58:44+08:00</updated>
+  <updated>2014-08-22T21:07:39+08:00</updated>
   <id>http://zpc5686.github.io/</id>
   <author>
     <name><![CDATA[Roc]]></name>
@@ -22,33 +22,37 @@
 
 <h2>先说点闲话</h2>
 
-<pre><code>这个域名已经申请了一年了，最开始是准备用来记录毕业论文的撰写流程的。
+<p>这个域名已经申请了一年了，最开始是准备用来记录毕业论文的撰写流程的。
 当时的想法很简单，就是每天编程，然后晚上将白天编程过程中遇到的问题记录下来用博客的形式记录下来，这样写论文的时候也不至于没有东西可以写吧。
-可惜没有坚持下来。。。这也是我最近在改正的一个毛病 **想法多，实现少。** 或者说是 **说的多，做的少** 。
-既然要改，就要多做多写啊。其他不多说了，下面来写一下今天用Terminator这个终端神器时候遇到的问题吧。
-</code></pre>
+可惜没有坚持下来。。。这也是我最近在改正的一个毛病 <strong>想法多，实现少。</strong> 或者说是 <strong>说的多，做的少</strong> 。
+既然要改，就要多做多写啊。其他不多说了，下面来写一下今天用Terminator这个终端神器时候遇到的问题吧。</p>
 
 <h2>Terminator 的bug</h2>
 
-<pre><code>Terminator的强大之处已经有很多人介绍过了。我比较喜欢它可以全屏使用，就像是在文字登陆的Linux上操作。
-非常带感。当然这不是重点，重点是我今天用RVM指定ruby版本的时候，被提示到：
+<p>Terminator的强大之处已经有很多人介绍过了。我比较喜欢它可以全屏使用，就像是在文字登陆的Linux上操作。
+非常带感。当然这不是重点，重点是我今天用RVM指定ruby版本的时候，被提示到：</p>
 
-```bash
-RVM is not a function, selecting rubies with 'rvm use ...' will not work.
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>RVM is not a <span class="k">function</span>, selecting rubies with <span class="s1">&#39;rvm use ...&#39;</span> will not work.
+</span><span class='line'>
+</span><span class='line'>You need to change your terminal emulator preferences to allow login shell.
+</span><span class='line'>Sometimes it is required to use <span class="sb">`</span>/bin/bash --login<span class="sb">`</span> as the command.
+</span><span class='line'>Please visit https://rvm.io/integration/gnome-terminal/ <span class="k">for </span>a example.
+</span></code></pre></td></tr></table></div></figure>
 
-You need to change your terminal emulator preferences to allow login shell.
-Sometimes it is required to use `/bin/bash --login` as the command.
-Please visit https://rvm.io/integration/gnome-terminal/ for a example.
 
-```
-我设置完了以后，重新登陆Terminator结果发现没有变啊，RVM还是不能USE。
+<p>我设置完了以后，重新登陆Terminator结果发现没有变啊，RVM还是不能USE。
 然后我想可能是Terminator启动的时候读配置文件会覆盖吧，于是找到配置文件发现没有相关变量。
-我想不会是个bug吧。于是Google，发现讨论组里已经有很多人遇到了，而且没有解决。不过针对我这个问题有个workaround。就是在.bashrc中添加
+我想不会是个bug吧。于是Google，发现讨论组里已经有很多人遇到了，而且没有解决。不过针对我这个问题有个workaround。就是在.bashrc中添加</p>
 
-``` bash
-[[ -s ${HOME}/.rvm/scripts/rvm ]] &amp;&amp; source ${HOME}/.rvm/scripts/rvm
-```
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="o">[[</span> -s <span class="k">${</span><span class="nv">HOME</span><span class="k">}</span>/.rvm/scripts/rvm <span class="o">]]</span> <span class="o">&amp;&amp;</span> <span class="nb">source</span> <span class="k">${</span><span class="nv">HOME</span><span class="k">}</span>/.rvm/scripts/rvm
+</span></code></pre></td></tr></table></div></figure>
+
 ]]></content>
   </entry>
   
