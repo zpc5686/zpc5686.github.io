@@ -9,9 +9,7 @@
   <meta name="author" content="Roc">
 
   
-  <meta name="description" content="================ 先说点闲话 这个域名已经申请了一年了，最开始是准备用来记录毕业论文的撰写流程的。
-当时的想法很简单，就是每天编程，然后晚上将白天编程过程中遇到的问题记录下来用博客的形式记录下来，这样写论文的时候也不至于没有东西可以写吧。
-可惜没有坚持下来。。。 &hellip;">
+  <meta name="description" content="将Vim打造成Python开发的编辑器 说起Python开发，你要是在windows平台下进行多少有点不专业。而且第三方的很多包啊，模块啊，都是针对Linux系统开发。要知道Linux是没有IDE的，开发的时候编辑器与编译器等模块是分开的。Vim作为一款历史悠久的编辑器， &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -67,6 +65,178 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/08/26/config-vim-and-often-used-shortcuts-of-terminator/">Config Vim and Often Used Shortcuts of Terminator</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-26T23:04:52+08:00" pubdate data-updated="true">Aug 26<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>将Vim打造成Python开发的编辑器</h2>
+
+<p>说起Python开发，你要是在windows平台下进行多少有点不专业。而且第三方的很多包啊，模块啊，都是针对Linux系统开发。要知道Linux是没有IDE的，开发的时候编辑器与编译器等模块是分开的。Vim作为一款历史悠久的编辑器，可以胜任Linux下任何语言的开发。在这里记录一下使用Python开发时所用到的插件。</p>
+
+<h3>NerdTree</h3>
+
+<p>看这个名字Nerd难道还不够diors吗，不要小看它，它可以在Vim中扩展出一个目录结构来。安装方法如下。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nb">cd</span> ~/.vim/bundle
+</span><span class='line'>git clone https://github.com/scrooloose/nerdtree.git
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>我喜欢用F3来开关NerdTree,需要在 ~/.vimrc中添加</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>map &lt;F3&gt; :NERDTreeMirror&lt;CR&gt;
+</span><span class='line'>map &lt;F3&gt; :NERDTreeToggle&lt;CR&gt;
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>你可以从[这里][1]看到它的源代码。</p>
+
+<h3>Taglist</h3>
+
+<p>这个插件用来快速定位类中函数，分析源代码的结构。可以从[这里][2]下载。</p>
+
+<h3>Pydiction</h3>
+
+<p>这个厉害了，我最初都在想有没有插件想VS那样可以打点进行调用的，答案是肯定的。利用这个插件很方便地实现。
+首先，需要下载</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nb">cd</span> ~/.vim/bundle
+</span><span class='line'>git clone https://github.com/rkulla/pydiction.git
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>下载好了发现是几个文件，需要对他们进行拷贝</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>cp pydiction-1.2/python_pydiction.vim   ~/.vim/after/ftplugin/
+</span><span class='line'>cp pydiction-1.2/complete-dict       ~/.vim/tools/pydiction/complete-dict
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>没有目录的要先建立目录，我今天就是吃了这个亏了。
+然后在~/.vimrc中加入</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nb">let </span><span class="nv">Tlist_Auto_Highlight_Tag</span><span class="o">=</span>1
+</span><span class='line'><span class="nb">let </span><span class="nv">Tlist_Auto_Open</span><span class="o">=</span>1
+</span><span class='line'><span class="nb">let </span><span class="nv">Tlist_Auto_Update</span><span class="o">=</span>1
+</span><span class='line'><span class="nb">let </span><span class="nv">Tlist_Display_Tag_Scope</span><span class="o">=</span>1
+</span><span class='line'><span class="nb">let </span><span class="nv">Tlist_Exit_OnlyWindow</span><span class="o">=</span>1
+</span><span class='line'><span class="nb">let </span><span class="nv">Tlist_Enable_Dold_Column</span><span class="o">=</span>1
+</span><span class='line'><span class="nb">let </span><span class="nv">Tlist_File_Fold_Auto_Close</span><span class="o">=</span>1
+</span><span class='line'><span class="nb">let </span><span class="nv">Tlist_Show_One_File</span><span class="o">=</span>1
+</span><span class='line'><span class="nb">let </span><span class="nv">Tlist_Use_Right_Window</span><span class="o">=</span>1
+</span><span class='line'><span class="nb">let </span><span class="nv">Tlist_Use_SingleClick</span><span class="o">=</span>1
+</span><span class='line'>nnoremap &lt;silent&gt; &lt;F8&gt; :TlistToggle&lt;CR&gt;
+</span><span class='line'>
+</span><span class='line'>filetype plugin on
+</span><span class='line'>autocmd FileType python <span class="nb">set </span><span class="nv">omnifunc</span><span class="o">=</span>pythoncomplete#Complete
+</span><span class='line'>autocmd FileType javascrīpt <span class="nb">set </span><span class="nv">omnifunc</span><span class="o">=</span>javascriptcomplete#CompleteJS
+</span><span class='line'>autocmd FileType html <span class="nb">set </span><span class="nv">omnifunc</span><span class="o">=</span>htmlcomplete#CompleteTags
+</span><span class='line'>autocmd FileType css <span class="nb">set </span><span class="nv">omnifunc</span><span class="o">=</span>csscomplete#CompleteCSS
+</span><span class='line'>autocmd FileType xml <span class="nb">set </span><span class="nv">omnifunc</span><span class="o">=</span>xmlcomplete#CompleteTags
+</span><span class='line'>autocmd FileType php <span class="nb">set </span><span class="nv">omnifunc</span><span class="o">=</span>phpcomplete#CompletePHP
+</span><span class='line'>autocmd FileType c <span class="nb">set </span><span class="nv">omnifunc</span><span class="o">=</span>ccomplete#Complete
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="nb">let </span>g:pydiction_location<span class="o">=</span><span class="s1">&#39;~/.vim/tools/pydiction/complete-dict&#39;</span>
+</span><span class='line'><span class="nb">set </span><span class="nv">tabstop</span><span class="o">=</span>4
+</span><span class='line'><span class="nb">set </span><span class="nv">shiftwidth</span><span class="o">=</span>4
+</span><span class='line'><span class="nb">set </span>expandtab
+</span><span class='line'><span class="nb">set </span>number
+</span></code></pre></td></tr></table></div></figure>
+
+
+<hr />
+
+<p>这么多插件，可能需要一个管理的，这里使用[pathogen][3]</p>
+
+<p>最后上一张配置完成后的图
+<img src="../images/vim_python.png" alt="finish" /></p>
+
+<h2>Terminator 快捷键</h2>
+
+<p>几个常用的
+Ctrl+Shift+O
+Split terminals Horizontally.（上下开新窗口）
+Ctrl+Shift+E
+Split terminals Vertically.（垂直开新窗口）
+Alt+Up
+Move to the terminal above the current one.（切换当前窗口）
+Ctrl+Shift+W
+Close the current terminal.
+Ctrl+Shift+Q
+Quits Terminator</p>
+
+<p>太晚了，睡觉，就这样。</p>
+
+<p>[1]<a href="https://github.com/scrooloose/nerdtree">https://github.com/scrooloose/nerdtree</a>
+[2]<a href="http://sourceforge.net/projects/vim-taglist/files/">http://sourceforge.net/projects/vim-taglist/files/</a>
+[3]<a href="https://github.com/tpope/vim-pathogen">https://github.com/tpope/vim-pathogen</a></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -268,6 +438,10 @@
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/08/26/config-vim-and-often-used-shortcuts-of-terminator/">Config Vim and Often Used Shortcuts of Terminator</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/08/22/terminator-login-shell-bug/">Terminator Login Shell Bug</a>
