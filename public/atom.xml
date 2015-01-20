@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[My Octopress Blog]]></title>
+  <link href="http://zpc5686.github.io/atom.xml" rel="self"/>
+  <link href="http://zpc5686.github.io/"/>
+  <updated>2015-01-20T23:08:53+08:00</updated>
+  <id>http://zpc5686.github.io/</id>
+  <author>
+    <name><![CDATA[Your Name]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Notes of Stanford iOS Dev]]></title>
+    <link href="http://zpc5686.github.io/blog/2015/01/20/notes-of-stanford-ios-dev/"/>
+    <updated>2015-01-20T22:31:37+08:00</updated>
+    <id>http://zpc5686.github.io/blog/2015/01/20/notes-of-stanford-ios-dev</id>
+    <content type="html"><![CDATA[<h3>为什么要写</h3>
+
+<p>以前在S的时候做过iOS的开发，但那时候总感觉自己学的不够扎实，基本上都是靠着githbub、stackoverflow以及apple的官方文档过来的，没有对iOS开发有一个系统对了解。</p>
+]]></content>
+  </entry>
+  
+</feed>
