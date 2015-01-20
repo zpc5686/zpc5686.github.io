@@ -5,11 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Roc</title>
-  <meta name="author" content="Roc">
+  <title>My Octopress Blog</title>
+  <meta name="author" content="Your Name">
 
   
-  <meta name="description" content="将Vim打造成Python开发的编辑器 说起Python开发，你要是在windows平台下进行多少有点不专业。而且第三方的很多包啊，模块啊，都是针对Linux系统开发。要知道Linux是没有IDE的，开发的时候编辑器与编译器等模块是分开的。Vim作为一款历史悠久的编辑器， &hellip;">
+  <meta name="description" content="为什么要写 以前在S的时候做过iOS的开发，但那时候总感觉自己学的不够扎实，基本上都是靠着githbub、stackoverflow以及apple的官方文档过来的，没有对iOS开发有一个系统对了解。
+">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -21,7 +22,7 @@
   <link rel="canonical" href="http://zpc5686.github.io">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <link href="/atom.xml" rel="alternate" title="Roc" type="application/atom+xml">
+  <link href="/atom.xml" rel="alternate" title="My Octopress Blog" type="application/atom+xml">
   <script src="/javascripts/modernizr-2.0.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
@@ -36,9 +37,9 @@
 
 <body   >
   <header role="banner"><hgroup>
-  <h1><a href="/">Roc</a></h1>
+  <h1><a href="/">My Octopress Blog</a></h1>
   
-    <h2>淡泊明志 宁静致远.</h2>
+    <h2>A blogging framework for hackers.</h2>
   
 </hgroup>
 
@@ -71,7 +72,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2014/08/26/config-vim-and-often-used-shortcuts-of-terminator/">Config Vim and Often Used Shortcuts of Terminator</a></h1>
+      <h1 class="entry-title"><a href="/blog/2015/01/20/notes-of-stanford-ios-dev/">Notes of Stanford iOS Dev</a></h1>
     
     
       <p class="meta">
@@ -87,335 +88,16 @@
   
 
 
-<time datetime="2014-08-26T23:04:52+08:00" pubdate data-updated="true">Aug 26<span>th</span>, 2014</time>
+<time datetime="2015-01-20T22:31:37+08:00" pubdate data-updated="true">Jan 20<span>th</span>, 2015</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><h2>将Vim打造成Python开发的编辑器</h2>
+  <div class="entry-content"><h3>为什么要写</h3>
 
-<p>说起Python开发，你要是在windows平台下进行多少有点不专业。而且第三方的很多包啊，模块啊，都是针对Linux系统开发。要知道Linux是没有IDE的，开发的时候编辑器与编译器等模块是分开的。Vim作为一款历史悠久的编辑器，可以胜任Linux下任何语言的开发。在这里记录一下使用Python开发时所用到的插件。</p>
-
-<h3>NerdTree</h3>
-
-<p>看这个名字Nerd难道还不够diors吗，不要小看它，它可以在Vim中扩展出一个目录结构来。安装方法如下。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nb">cd</span> ~/.vim/bundle
-</span><span class='line'>git clone https://github.com/scrooloose/nerdtree.git
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>我喜欢用F3来开关NerdTree,需要在 ~/.vimrc中添加</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>map &lt;F3&gt; :NERDTreeMirror&lt;CR&gt;
-</span><span class='line'>map &lt;F3&gt; :NERDTreeToggle&lt;CR&gt;
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>你可以从<a href="https://github.com/scrooloose/nerdtree">这里</a>看到它的源代码。</p>
-
-<h3>Taglist</h3>
-
-<p>这个插件用来快速定位类中函数，分析源代码的结构。可以从<a href="http://sourceforge.net/projects/vim-taglist/files/">这里</a>下载。</p>
-
-<h3>Pydiction</h3>
-
-<p>这个厉害了，我最初都在想有没有插件想VS那样可以打点进行调用的，答案是肯定的。利用这个插件很方便地实现。
-首先，需要下载</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nb">cd</span> ~/.vim/bundle
-</span><span class='line'>git clone https://github.com/rkulla/pydiction.git
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>下载好了发现是几个文件，需要对他们进行拷贝</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>cp pydiction-1.2/python_pydiction.vim   ~/.vim/after/ftplugin/
-</span><span class='line'>cp pydiction-1.2/complete-dict       ~/.vim/tools/pydiction/complete-dict
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>没有目录的要先建立目录，我今天就是吃了这个亏了。
-然后在~/.vimrc中加入</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nb">let </span><span class="nv">Tlist_Auto_Highlight_Tag</span><span class="o">=</span>1
-</span><span class='line'><span class="nb">let </span><span class="nv">Tlist_Auto_Open</span><span class="o">=</span>1
-</span><span class='line'><span class="nb">let </span><span class="nv">Tlist_Auto_Update</span><span class="o">=</span>1
-</span><span class='line'><span class="nb">let </span><span class="nv">Tlist_Display_Tag_Scope</span><span class="o">=</span>1
-</span><span class='line'><span class="nb">let </span><span class="nv">Tlist_Exit_OnlyWindow</span><span class="o">=</span>1
-</span><span class='line'><span class="nb">let </span><span class="nv">Tlist_Enable_Dold_Column</span><span class="o">=</span>1
-</span><span class='line'><span class="nb">let </span><span class="nv">Tlist_File_Fold_Auto_Close</span><span class="o">=</span>1
-</span><span class='line'><span class="nb">let </span><span class="nv">Tlist_Show_One_File</span><span class="o">=</span>1
-</span><span class='line'><span class="nb">let </span><span class="nv">Tlist_Use_Right_Window</span><span class="o">=</span>1
-</span><span class='line'><span class="nb">let </span><span class="nv">Tlist_Use_SingleClick</span><span class="o">=</span>1
-</span><span class='line'>nnoremap &lt;silent&gt; &lt;F8&gt; :TlistToggle&lt;CR&gt;
-</span><span class='line'>
-</span><span class='line'>filetype plugin on
-</span><span class='line'>autocmd FileType python <span class="nb">set </span><span class="nv">omnifunc</span><span class="o">=</span>pythoncomplete#Complete
-</span><span class='line'>autocmd FileType javascrīpt <span class="nb">set </span><span class="nv">omnifunc</span><span class="o">=</span>javascriptcomplete#CompleteJS
-</span><span class='line'>autocmd FileType html <span class="nb">set </span><span class="nv">omnifunc</span><span class="o">=</span>htmlcomplete#CompleteTags
-</span><span class='line'>autocmd FileType css <span class="nb">set </span><span class="nv">omnifunc</span><span class="o">=</span>csscomplete#CompleteCSS
-</span><span class='line'>autocmd FileType xml <span class="nb">set </span><span class="nv">omnifunc</span><span class="o">=</span>xmlcomplete#CompleteTags
-</span><span class='line'>autocmd FileType php <span class="nb">set </span><span class="nv">omnifunc</span><span class="o">=</span>phpcomplete#CompletePHP
-</span><span class='line'>autocmd FileType c <span class="nb">set </span><span class="nv">omnifunc</span><span class="o">=</span>ccomplete#Complete
-</span><span class='line'>
-</span><span class='line'>
-</span><span class='line'><span class="nb">let </span>g:pydiction_location<span class="o">=</span><span class="s1">&#39;~/.vim/tools/pydiction/complete-dict&#39;</span>
-</span><span class='line'><span class="nb">set </span><span class="nv">tabstop</span><span class="o">=</span>4
-</span><span class='line'><span class="nb">set </span><span class="nv">shiftwidth</span><span class="o">=</span>4
-</span><span class='line'><span class="nb">set </span>expandtab
-</span><span class='line'><span class="nb">set </span>number
-</span></code></pre></td></tr></table></div></figure>
-
-
-<hr />
-
-<p>这么多插件，可能需要一个管理的，这里使用<a href="https://github.com/tpope/vim-pathogen">pathogen</a></p>
-
-<p>最后上一张配置完成后的图
-<img src="/images/vim_python.png" alt="finish" /></p>
-
-<h2>Terminator 快捷键</h2>
-
-<p>几个常用的
-Ctrl+Shift+O
-Split terminals Horizontally.（上下开新窗口）
-Ctrl+Shift+E
-Split terminals Vertically.（垂直开新窗口）
-Alt+Up
-Move to the terminal above the current one.（切换当前窗口）
-Ctrl+Shift+W
-Close the current terminal.
-Ctrl+Shift+Q
-Quits Terminator</p>
-
-<p>太晚了，睡觉，就这样。</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/08/22/terminator-login-shell-bug/">Terminator Login Shell Bug</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-08-22T00:14:50+08:00" pubdate data-updated="true">Aug 22<span>nd</span>, 2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>================</p>
-
-<h2>先说点闲话</h2>
-
-<p>这个域名已经申请了一年了，最开始是准备用来记录毕业论文的撰写流程的。
-当时的想法很简单，就是每天编程，然后晚上将白天编程过程中遇到的问题记录下来用博客的形式记录下来，这样写论文的时候也不至于没有东西可以写吧。
-可惜没有坚持下来。。。这也是我最近在改正的一个毛病 <strong>想法多，实现少。</strong> 或者说是 <strong>说的多，做的少</strong> 。
-既然要改，就要多做多写啊。其他不多说了，下面来写一下今天用Terminator这个终端神器时候遇到的问题吧。</p>
-
-<h2>Terminator 的bug</h2>
-
-<p>Terminator的强大之处已经有很多人介绍过了。我比较喜欢它可以全屏使用，就像是在文字登陆的Linux上操作。
-非常带感。当然这不是重点，重点是我今天用RVM指定ruby版本的时候，被提示到：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>RVM is not a <span class="k">function</span>, selecting rubies with <span class="s1">&#39;rvm use ...&#39;</span> will not work.
-</span><span class='line'>
-</span><span class='line'>You need to change your terminal emulator preferences to allow login shell.
-</span><span class='line'>Sometimes it is required to use <span class="sb">`</span>/bin/bash --login<span class="sb">`</span> as the command.
-</span><span class='line'>Please visit https://rvm.io/integration/gnome-terminal/ <span class="k">for </span>a example.
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>我设置完了以后，重新登陆Terminator结果发现没有变啊，RVM还是不能USE。
-然后我想可能是Terminator启动的时候读配置文件会覆盖吧，于是找到配置文件发现没有相关变量。
-我想不会是个bug吧。于是Google，发现讨论组里已经有很多人遇到了，而且没有解决。不过针对我这个问题有个workaround。就是在.bashrc中添加</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="o">[[</span> -s <span class="k">${</span><span class="nv">HOME</span><span class="k">}</span>/.rvm/scripts/rvm <span class="o">]]</span> <span class="o">&amp;&amp;</span> <span class="nb">source</span> <span class="k">${</span><span class="nv">HOME</span><span class="k">}</span>/.rvm/scripts/rvm
-</span></code></pre></td></tr></table></div></figure>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/02/27/Ubuntu%E4%B8%8B%E6%8A%98%E8%85%BE%E5%8F%8C%E6%98%BE%E5%8D%A1/">Ubuntu下折腾双显卡</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-02-27T00:00:00+08:00" pubdate data-updated="true"></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content">
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/01/21/fff/">测试博客</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-21T14:34:44+08:00" pubdate data-updated="true">Jan 21<span>st</span>, 2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>简单测下==</h2>
-
-<p>============</p>
-
-<h2>开始用markdown写博客</h2>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">a</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;f&#39;</span><span class="p">,</span><span class="s">&#39;w&#39;</span><span class="p">,</span><span class="s">&#39;r&#39;</span><span class="p">]</span>
-</span><span class='line'><span class="n">t</span><span class="o">=</span><span class="p">(</span><span class="s">&#39;f&#39;</span><span class="p">,</span><span class="s">&#39;e&#39;</span><span class="p">,</span><span class="s">&#39;p&#39;</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>sudo apt-get
-</span></code></pre></td></tr></table></div></figure>
-
-
-<blockquote><ul>
-<li>使用点</li>
-</ul>
-</blockquote>
-
-<h2>绘制表格</h2>
-
-<table>
-<thead>
-<tr>
-<th></th>
-<th>pro </th>
-<th>price </th>
-<th align="center"> sums</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td></td>
-<td>com</td>
-<td>2</td>
-<td align="center">3|</td>
-</tr>
-</tbody>
-</table>
-
-
-<p><a href="www.google.com.hk">添加一个超链接</a></p>
+<p>以前在S的时候做过iOS的开发，但那时候总感觉自己学的不够扎实，基本上都是靠着githbub、stackoverflow以及apple的官方文档过来的，没有对iOS开发有一个系统对了解。</p>
 </div>
   
   
@@ -436,19 +118,7 @@ Quits Terminator</p>
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2014/08/26/config-vim-and-often-used-shortcuts-of-terminator/">Config Vim and Often Used Shortcuts of Terminator</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/08/22/terminator-login-shell-bug/">Terminator Login Shell Bug</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/02/27/Ubuntu%E4%B8%8B%E6%8A%98%E8%85%BE%E5%8F%8C%E6%98%BE%E5%8D%A1/">Ubuntu下折腾双显卡</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/01/21/fff/">测试博客</a>
+        <a href="/blog/2015/01/20/notes-of-stanford-ios-dev/">Notes of Stanford iOS Dev</a>
       </li>
     
   </ul>
@@ -464,25 +134,12 @@ Quits Terminator</p>
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2014 - Roc -
+  Copyright &copy; 2015 - Your Name -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
 </footer>
   
-
-<script type="text/javascript">
-      var disqus_shortname = 'Roc';
-      
-        
-        var disqus_script = 'count.js';
-      
-    (function () {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    }());
-</script>
 
 
 
