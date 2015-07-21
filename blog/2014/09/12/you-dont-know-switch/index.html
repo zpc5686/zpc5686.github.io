@@ -98,32 +98,35 @@
 
 <p>不过switch有时候也会有点调皮，比如下面的代码</p>
 
-<p>`</p>
+<p>`
+void foo(int a)
+{</p>
 
-<p>  void foo(int a)</p>
+<pre><code>      switch(a)
+      {
+        case 1:
+        printf("case 1\n");
+        break;
+        if(a&gt;3)
+        {
+          case 2:
+          printf("case 2\n");
+          break;
+        }
+        default :
+        printf("default\n");
+        break;
+      }
+</code></pre>
 
-<pre><code>{
-      switch(a)
-            {
-                case 1:
-                      printf("case 1\n");
-                            break;
-                                if(a&gt;3)
-                                    {
-                                           case 2:
-                                                printf("case 2\n");
-                                                      break;
-                                                          }
-                                                              default :
-                                                                    printf("default\n");
-                                                                          break;
-                                                                                }
-                                                                                  }
-                                                                                    int main()
-                                                                                      {
-                                                                                           foo(2);
-                                                                                               return 0;
+<p>}
+int main()
+{</p>
+
+<pre><code>foo(2);
+return 0;
                                                                                                 }
+
                                                                                                 `
 
                                                                                                 在Ubuntu下用clang和gcc分别编译后，得到的结果都一样，具体是啥大家试一下哈。

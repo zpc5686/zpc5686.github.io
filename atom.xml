@@ -4,7 +4,7 @@
   <title><![CDATA[Roc's Blog]]></title>
   <link href="http://zpc5686.github.io/atom.xml" rel="self"/>
   <link href="http://zpc5686.github.io/"/>
-  <updated>2015-07-22T00:24:38+08:00</updated>
+  <updated>2015-07-22T00:31:01+08:00</updated>
   <id>http://zpc5686.github.io/</id>
   <author>
     <name><![CDATA[Roc]]></name>
@@ -75,32 +75,35 @@ weak 当没有strong pointer 指向它时 weak pointer变成nil，而且会销�
 
 <p>不过switch有时候也会有点调皮，比如下面的代码</p>
 
-<p>`</p>
+<p>`
+void foo(int a)
+{</p>
 
-<p>  void foo(int a)</p>
+<pre><code>      switch(a)
+      {
+        case 1:
+        printf("case 1\n");
+        break;
+        if(a&gt;3)
+        {
+          case 2:
+          printf("case 2\n");
+          break;
+        }
+        default :
+        printf("default\n");
+        break;
+      }
+</code></pre>
 
-<pre><code>{
-      switch(a)
-            {
-                case 1:
-                      printf("case 1\n");
-                            break;
-                                if(a&gt;3)
-                                    {
-                                           case 2:
-                                                printf("case 2\n");
-                                                      break;
-                                                          }
-                                                              default :
-                                                                    printf("default\n");
-                                                                          break;
-                                                                                }
-                                                                                  }
-                                                                                    int main()
-                                                                                      {
-                                                                                           foo(2);
-                                                                                               return 0;
+<p>}
+int main()
+{</p>
+
+<pre><code>foo(2);
+return 0;
                                                                                                 }
+
                                                                                                 `
 
                                                                                                 在Ubuntu下用clang和gcc分别编译后，得到的结果都一样，具体是啥大家试一下哈。
