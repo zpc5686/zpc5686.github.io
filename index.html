@@ -151,6 +151,79 @@ weak 当没有strong pointer 指向它时 weak pointer变成nil，而且会销�
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2014/09/12/you-dont-know-switch/">You Dont Know Switch</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-09-12T23:21:44+08:00" pubdate data-updated="true">Sep 12<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>你可能不知道的switch</h2>
+
+<p>switch语句是一个常用的分支语句，可以让代码更加直观。其实switch的功能是可以被<code>if else</code>替代的。使用switch可以让代码的结构更加清晰，就像新的swift 2.0中加入<code>guard</code>一样。为了增加代码的可读性。</p>
+
+<p>不过switch有时候也会有点调皮，比如下面的代码</p>
+
+<p>`</p>
+
+<p>  void foo(int a)</p>
+
+<pre><code>{
+      switch(a)
+            {
+                case 1:
+                      printf("case 1\n");
+                            break;
+                                if(a&gt;3)
+                                    {
+                                           case 2:
+                                                printf("case 2\n");
+                                                      break;
+                                                          }
+                                                              default :
+                                                                    printf("default\n");
+                                                                          break;
+                                                                                }
+                                                                                  }
+                                                                                    int main()
+                                                                                      {
+                                                                                           foo(2);
+                                                                                               return 0;
+                                                                                                }
+                                                                                                `
+
+                                                                                                在Ubuntu下用clang和gcc分别编译后，得到的结果都一样，具体是啥大家试一下哈。
+
+                                                                                                虽然上面这个代码片段有问题，但是可以成功地说明，switch的本质就是对条件的匹配！在它的内部是不能做if判断的。
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2014/08/26/config-vim-and-often-used-shortcuts-of-terminator/">Config Vim and Often Used Shortcuts of Terminator</a></h1>
     
     
@@ -375,6 +448,10 @@ Quits Terminator</p>
     
       <li class="post">
         <a href="/blog/2015/01/20/notes-of-stanford-ios-dev/">Notes of Stanford iOS Dev</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/09/12/you-dont-know-switch/">You Dont Know Switch</a>
       </li>
     
       <li class="post">
