@@ -5,12 +5,13 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Notes of Stanford iOS Dev - Roc's Blog</title>
+  <title>Terminator Login Shell Bug - Roc's Blog</title>
   <meta name="author" content="Roc">
 
   
-  <meta name="description" content="以前在S的时候做过iOS的开发，但那时候总感觉自己学的不够扎实，基本上都是靠着githbub、stackoverflow以及apple的官方文档过来的，没有对iOS开发有一个系统对了解。 第一讲 课程刚开始是一些闲话，需要一些前导课等等。后面提到一个APP分为4层，从下往上依次是
-* core &hellip;">
+  <meta name="description" content="先说点闲话 这个域名已经申请了一年了，最开始是准备用来记录毕业论文的撰写流程的。
+当时的想法很简单，就是每天编程，然后晚上将白天编程过程中遇到的问题记录下来用博客的形式记录下来，这样写论文的时候也不至于没有东西可以写吧。
+可惜没有坚持下来。。。这也是我最近在改正的一个毛病 想法多，实现少。 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,7 +20,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://zpc5686.github.io/blog/2015/01/20/notes-of-stanford-ios-dev">
+  <link rel="canonical" href="http://zpc5686.github.io/blog/2014/08/22/terminator-login-shell-bug">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="Roc's Blog" type="application/atom+xml">
@@ -70,7 +71,7 @@
   
   <header>
     
-      <h1 class="entry-title">Notes of Stanford iOS Dev</h1>
+      <h1 class="entry-title">Terminator Login Shell Bug</h1>
     
     
       <p class="meta">
@@ -86,56 +87,28 @@
   
 
 
-<time datetime="2015-01-20T22:31:37+08:00" pubdate data-updated="true">Jan 20<span>th</span>, 2015</time>
+<time datetime="2014-08-22T00:14:15+08:00" pubdate data-updated="true">Aug 22<span>nd</span>, 2014</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>以前在S的时候做过iOS的开发，但那时候总感觉自己学的不够扎实，基本上都是靠着githbub、stackoverflow以及apple的官方文档过来的，没有对iOS开发有一个系统对了解。</p>
+<div class="entry-content"><h2>先说点闲话</h2>
 
-<h2>第一讲</h2>
+<p>这个域名已经申请了一年了，最开始是准备用来记录毕业论文的撰写流程的。
+当时的想法很简单，就是每天编程，然后晚上将白天编程过程中遇到的问题记录下来用博客的形式记录下来，这样写论文的时候也不至于没有东西可以写吧。
+可惜没有坚持下来。。。这也是我最近在改正的一个毛病 <strong>想法多，实现少。</strong> 或者说是 <strong>说的多，做的少</strong> 。
+下面来写一下今天用Terminator这个终端神器时候遇到的问题吧。</p>
 
-<p>课程刚开始是一些闲话，需要一些前导课等等。后面提到一个APP分为4层，从下往上依次是
-* core os 一个unix内核，socket等等都封装在这一层
-* core services 数组、字典、GPS、多线程等等
-* media 视频图像处理等
-* Cocoa touch 各个控件，是高级对象</p>
+<h2>Terminator 的bug</h2>
 
-<h3>MVC 设计模式</h3>
+<p>Terminator的强大之处已经有很多人介绍过了。我比较喜欢它可以全屏使用，就像是在文字登陆的Linux上操作。
+非常带感。当然这不是重点，重点是我今天用RVM指定ruby版本的时候，被提示到：</p>
 
-<p>MVC是iOS应用的设计模式
-* model与view之间永远不能通信
-* view与controller之间通信的时候用的target action方法，我们在手机上碰到某些控件的时候会触发一些事件。这些事件有will、should、did这三种响应</p>
-
-<h3>setter and getter</h3>
-
-<p>objective-c 将实例变量封装成了一个property。oc中所有对象都存于堆中，在栈上不能分配对象。
-<code>@property (strong) NSString *content</code>
-调用的时候card.content
-strong （reference countting） 只要有strong指针指向它时，就不会被销毁。
-weak 当没有strong pointer 指向它时 weak pointer变成nil，而且会销毁那块内存。</p>
-
-<p>nonatomic 线程不安全。getter和setter可以重命名。</p>
-
-<h3>学生提问</h3>
-
-<ul>
-<li>所有的对象都要被指针指着，</li>
-<li>可以用[ ]来调用getter和setter，但是不推荐</li>
-<li>除了getter和setter之外的方法不能用打点调用</li>
-</ul>
-
-
-<h2>第二讲</h2>
-
-<p>1、上来就写了一个新类 Deck。
-2、向NSMutableArray里插入nil后会使程序crash掉。
-3、property可以用来给getter重新起名字比如
-@property (nonatomic,getter=isMatched) BOOL matched;
-在这里使用getter的时候用self.isMatched，而使用setter的时候还是要永self.mathced;
-4、</p>
+<p>我设置完了以后，重新登陆Terminator结果发现没有变啊，RVM还是不能USE。
+然后我想可能是Terminator启动的时候读配置文件会覆盖吧，于是找到配置文件发现没有相关变量。
+我想不会是个bug吧。于是Google，发现讨论组里已经有很多人遇到了，而且没有解决。不过针对我这个问题有个workaround。就是在.bashrc中添加</p>
 </div>
 
 
@@ -158,7 +131,7 @@ weak 当没有strong pointer 指向它时 weak pointer变成nil，而且会销�
   
 
 
-<time datetime="2015-01-20T22:31:37+08:00" pubdate data-updated="true">Jan 20<span>th</span>, 2015</time>
+<time datetime="2014-08-22T00:14:15+08:00" pubdate data-updated="true">Aug 22<span>nd</span>, 2014</time>
       
 
 
@@ -166,7 +139,7 @@ weak 当没有strong pointer 指向它时 weak pointer变成nil，而且会销�
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://zpc5686.github.io/blog/2015/01/20/notes-of-stanford-ios-dev/" data-via="" data-counturl="http://zpc5686.github.io/blog/2015/01/20/notes-of-stanford-ios-dev/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://zpc5686.github.io/blog/2014/08/22/terminator-login-shell-bug/" data-via="" data-counturl="http://zpc5686.github.io/blog/2014/08/22/terminator-login-shell-bug/" >Tweet</a>
   
   
   
@@ -175,8 +148,8 @@ weak 当没有strong pointer 指向它时 weak pointer变成nil，而且会销�
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2014/08/22/terminator-login-shell-bug/" title="Previous Post: Terminator Login Shell Bug">&laquo; Terminator Login Shell Bug</a>
       
+        <a class="basic-alignment right" href="/blog/2015/01/20/notes-of-stanford-ios-dev/" title="Next Post: Notes of Stanford iOS dev">Notes of Stanford iOS dev &raquo;</a>
       
     </p>
   </footer>
