@@ -189,6 +189,11 @@ weak 当没有strong pointer 指向它时 weak pointer变成nil，而且会销�
 <p>我设置完了以后，重新登陆Terminator结果发现没有变啊，RVM还是不能USE。
 然后我想可能是Terminator启动的时候读配置文件会覆盖吧，于是找到配置文件发现没有相关变量。
 我想不会是个bug吧。于是Google，发现讨论组里已经有很多人遇到了，而且没有解决。不过针对我这个问题有个workaround。就是在.bashrc中添加</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="o">[[</span> -s <span class="k">${</span><span class="nv">HOME</span><span class="k">}</span>/.rvm/scripts/rvm <span class="o">]]</span> <span class="o">&amp;&amp;</span> <span class="nb">source</span> <span class="k">${</span><span class="nv">HOME</span><span class="k">}</span>/.rvm/scripts/rvm
+</span></code></pre></td></tr></table></div></figure>
+
 </div>
   
   
