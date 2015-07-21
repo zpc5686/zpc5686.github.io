@@ -9,8 +9,7 @@
   <meta name="author" content="Roc">
 
   
-  <meta name="description" content="以前在S的时候做过iOS的开发，但那时候总感觉自己学的不够扎实，基本上都是靠着githbub、stackoverflow以及apple的官方文档过来的，没有对iOS开发有一个系统对了解。 第一讲 课程刚开始是一些闲话，需要一些前导课等等。后面提到一个APP分为4层，从下往上依次是
-* core &hellip;">
+  <meta name="description" content="问题 今天多拨程序出现了一个奇怪的问题。在Linux下用c语言对Oracle数据库做update操作的时候，执行几条还行，再多执行几条就会卡住。整个程序就像是死掉一样，没有日志打印，也不再执行任何操作。 解决 经过调试发现，程序是卡在了 &#8220;` m_queryResult = &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -67,6 +66,80 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2015/04/13/oci-problem/">Oci Problem</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-04-13T10:28:42+08:00" pubdate data-updated="true">Apr 13<span>th</span>, 2015</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3>问题</h3>
+
+<p>今天多拨程序出现了一个奇怪的问题。在Linux下用c语言对Oracle数据库做update操作的时候，执行几条还行，再多执行几条就会卡住。整个程序就像是死掉一样，没有日志打印，也不再执行任何操作。</p>
+
+<h3>解决</h3>
+
+<p>经过调试发现，程序是卡在了</p>
+
+<p>&#8220;`    m_queryResult = OCIStmtExecute(m_serviceContextHandle, m_stmtHandle, m_errHandle,</p>
+
+<pre><code>    1, 0, (OCISnapshot *)0, (OCISnapshot *)0, OCI_DEFAULT);
+    ```
+
+    这条语句上。这个函数是oci自己的接口，而且底层的Oracle驱动公司已经用了好几年了，不会出错啊。
+
+    - 问谷歌：
+    由于公司没有VPN，我用ggss.so这个谷歌服务镜像，搜索无果。                                 
+
+    - 问sof。
+    sof上关于这个函数的问题，只有5页，看完发现没有类似的问题。
+    - 看官方文档。
+    前两个都没有只能去看oci的官方文档了，官方文档好多啊，[这里](http://docs.oracle.com/cd/E11882_01/appdev.112/e10646/oci04sql.htm#LNOCI040)可以看到。看官方的例子发现最后一个参数用的是
+    ```
+    OCI_BATCH_ERRORS 
+    ```
+    难道是这里出错了吗？改成这个mode后，运行程序，一切正常。
+
+    ###under the hood
+
+    什么情况下才用```OCI_BATCH_ERRORS``` 这个呢？，以下是官方解答
+
+
+
+    OCI provides the ability to perform array DML operations.
+    For example, an application can process an array of INSERT, UPDATE, or DELETE statements with a single statement execution. If one of the operations fails due to an error from the server, such as a unique constraint violation, the array operation terminates, and OCI returns an error. Any rows remaining in the array are ignored. The application must then reexecute the remainder of the array, and go through the whole process again if it encounters more errors, which causes additional round-trips.
+
+
+    这里说的是，如果使用array进行 update insert 或者 delete操作时，需要使用```OCI_BATCH_ERRORS```这个mode，但是我们这里是一条update，为什么也要用呢？这个我也不清楚，不过按照官方的例子改了以后，程序确实不会卡死了。。。
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -465,6 +538,10 @@ Quits Terminator</p>
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/04/13/oci-problem/">Oci Problem</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2015/01/20/notes-of-stanford-ios-dev/">Notes of Stanford iOS Dev</a>

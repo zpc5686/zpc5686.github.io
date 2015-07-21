@@ -5,13 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Terminator Login Shell Bug - Roc's Blog</title>
+  <title>Oci Problem - Roc's Blog</title>
   <meta name="author" content="Roc">
 
   
-  <meta name="description" content="先说点闲话 这个域名已经申请了一年了，最开始是准备用来记录毕业论文的撰写流程的。
-当时的想法很简单，就是每天编程，然后晚上将白天编程过程中遇到的问题记录下来用博客的形式记录下来，这样写论文的时候也不至于没有东西可以写吧。
-可惜没有坚持下来。。。这也是我最近在改正的一个毛病 想法多，实现少。 &hellip;">
+  <meta name="description" content="问题 今天多拨程序出现了一个奇怪的问题。在Linux下用c语言对Oracle数据库做update操作的时候，执行几条还行，再多执行几条就会卡住。整个程序就像是死掉一样，没有日志打印，也不再执行任何操作。 解决 经过调试发现，程序是卡在了 &#8220;` m_queryResult = &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -20,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://zpc5686.github.io/blog/2014/08/22/terminator-login-shell-bug">
+  <link rel="canonical" href="http://zpc5686.github.io/blog/2015/04/13/oci-problem">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="Roc's Blog" type="application/atom+xml">
@@ -71,7 +69,7 @@
   
   <header>
     
-      <h1 class="entry-title">Terminator Login Shell Bug</h1>
+      <h1 class="entry-title">Oci Problem</h1>
     
     
       <p class="meta">
@@ -87,33 +85,52 @@
   
 
 
-<time datetime="2014-08-22T00:14:15+08:00" pubdate data-updated="true">Aug 22<span>nd</span>, 2014</time>
+<time datetime="2015-04-13T10:28:42+08:00" pubdate data-updated="true">Apr 13<span>th</span>, 2015</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><h2>先说点闲话</h2>
+<div class="entry-content"><h3>问题</h3>
 
-<p>这个域名已经申请了一年了，最开始是准备用来记录毕业论文的撰写流程的。
-当时的想法很简单，就是每天编程，然后晚上将白天编程过程中遇到的问题记录下来用博客的形式记录下来，这样写论文的时候也不至于没有东西可以写吧。
-可惜没有坚持下来。。。这也是我最近在改正的一个毛病 <strong>想法多，实现少。</strong> 或者说是 <strong>说的多，做的少</strong> 。
-下面来写一下今天用Terminator这个终端神器时候遇到的问题吧。</p>
+<p>今天多拨程序出现了一个奇怪的问题。在Linux下用c语言对Oracle数据库做update操作的时候，执行几条还行，再多执行几条就会卡住。整个程序就像是死掉一样，没有日志打印，也不再执行任何操作。</p>
 
-<h2>Terminator 的bug</h2>
+<h3>解决</h3>
 
-<p>Terminator的强大之处已经有很多人介绍过了。我比较喜欢它可以全屏使用，就像是在文字登陆的Linux上操作。
-非常带感。当然这不是重点，重点是我今天用RVM指定ruby版本的时候，被提示到：</p>
+<p>经过调试发现，程序是卡在了</p>
 
-<p>我设置完了以后，重新登陆Terminator结果发现没有变啊，RVM还是不能USE。
-然后我想可能是Terminator启动的时候读配置文件会覆盖吧，于是找到配置文件发现没有相关变量。
-我想不会是个bug吧。于是Google，发现讨论组里已经有很多人遇到了，而且没有解决。不过针对我这个问题有个workaround。就是在.bashrc中添加</p>
+<p>&#8220;`    m_queryResult = OCIStmtExecute(m_serviceContextHandle, m_stmtHandle, m_errHandle,</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="o">[[</span> -s <span class="k">${</span><span class="nv">HOME</span><span class="k">}</span>/.rvm/scripts/rvm <span class="o">]]</span> <span class="o">&amp;&amp;</span> <span class="nb">source</span> <span class="k">${</span><span class="nv">HOME</span><span class="k">}</span>/.rvm/scripts/rvm
-</span></code></pre></td></tr></table></div></figure>
+<pre><code>    1, 0, (OCISnapshot *)0, (OCISnapshot *)0, OCI_DEFAULT);
+    ```
 
+    这条语句上。这个函数是oci自己的接口，而且底层的Oracle驱动公司已经用了好几年了，不会出错啊。
+
+    - 问谷歌：
+    由于公司没有VPN，我用ggss.so这个谷歌服务镜像，搜索无果。                                 
+
+    - 问sof。
+    sof上关于这个函数的问题，只有5页，看完发现没有类似的问题。
+    - 看官方文档。
+    前两个都没有只能去看oci的官方文档了，官方文档好多啊，[这里](http://docs.oracle.com/cd/E11882_01/appdev.112/e10646/oci04sql.htm#LNOCI040)可以看到。看官方的例子发现最后一个参数用的是
+    ```
+    OCI_BATCH_ERRORS 
+    ```
+    难道是这里出错了吗？改成这个mode后，运行程序，一切正常。
+
+    ###under the hood
+
+    什么情况下才用```OCI_BATCH_ERRORS``` 这个呢？，以下是官方解答
+
+
+
+    OCI provides the ability to perform array DML operations.
+    For example, an application can process an array of INSERT, UPDATE, or DELETE statements with a single statement execution. If one of the operations fails due to an error from the server, such as a unique constraint violation, the array operation terminates, and OCI returns an error. Any rows remaining in the array are ignored. The application must then reexecute the remainder of the array, and go through the whole process again if it encounters more errors, which causes additional round-trips.
+
+
+    这里说的是，如果使用array进行 update insert 或者 delete操作时，需要使用```OCI_BATCH_ERRORS```这个mode，但是我们这里是一条update，为什么也要用呢？这个我也不清楚，不过按照官方的例子改了以后，程序确实不会卡死了。。。
+</code></pre>
 </div>
 
 
@@ -136,7 +153,7 @@
   
 
 
-<time datetime="2014-08-22T00:14:15+08:00" pubdate data-updated="true">Aug 22<span>nd</span>, 2014</time>
+<time datetime="2015-04-13T10:28:42+08:00" pubdate data-updated="true">Apr 13<span>th</span>, 2015</time>
       
 
 
@@ -144,7 +161,7 @@
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://zpc5686.github.io/blog/2014/08/22/terminator-login-shell-bug/" data-via="" data-counturl="http://zpc5686.github.io/blog/2014/08/22/terminator-login-shell-bug/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://zpc5686.github.io/blog/2015/04/13/oci-problem/" data-via="" data-counturl="http://zpc5686.github.io/blog/2015/04/13/oci-problem/" >Tweet</a>
   
   
   
@@ -153,8 +170,8 @@
     
     <p class="meta">
       
+        <a class="basic-alignment left" href="/blog/2015/01/20/notes-of-stanford-ios-dev/" title="Previous Post: Notes of Stanford iOS dev">&laquo; Notes of Stanford iOS dev</a>
       
-        <a class="basic-alignment right" href="/blog/2014/08/26/config-vim-and-often-used-shortcuts-of-terminator/" title="Next Post: Config Vim and Often Used Shortcuts of Terminator">Config Vim and Often Used Shortcuts of Terminator &raquo;</a>
       
     </p>
   </footer>
