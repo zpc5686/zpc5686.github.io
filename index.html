@@ -180,41 +180,58 @@ weak 当没有strong pointer 指向它时 weak pointer变成nil，而且会销�
 
 <p>不过switch有时候也会有点调皮，比如下面的代码</p>
 
-<p>`
-void foo(int a)
-{</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>void foo<span class="o">(</span>int a<span class="o">)</span>
+</span><span class='line'><span class="o">{</span>
+</span><span class='line'>          switch<span class="o">(</span>a<span class="o">)</span>
+</span><span class='line'>          <span class="o">{</span>
+</span><span class='line'>            <span class="k">case </span>1:
+</span><span class='line'>            <span class="nb">printf</span><span class="o">(</span><span class="s2">&quot;case 1\n&quot;</span><span class="o">)</span>;
+</span><span class='line'>            <span class="nb">break</span>;
+</span><span class='line'>            <span class="k">if</span><span class="o">(</span>a&gt;3<span class="o">)</span>
+</span><span class='line'>            <span class="o">{</span>
+</span><span class='line'>              <span class="k">case </span>2:
+</span><span class='line'>              <span class="nb">printf</span><span class="o">(</span><span class="s2">&quot;case 2\n&quot;</span><span class="o">)</span>;
+</span><span class='line'>              <span class="nb">break</span>;
+</span><span class='line'>            <span class="o">}</span>
+</span><span class='line'>            default :
+</span><span class='line'>            <span class="nb">printf</span><span class="o">(</span><span class="s2">&quot;default\n&quot;</span><span class="o">)</span>;
+</span><span class='line'>            <span class="nb">break</span>;
+</span><span class='line'>          <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>int main<span class="o">()</span>
+</span><span class='line'><span class="o">{</span>
+</span><span class='line'>    foo<span class="o">(</span>2<span class="o">)</span>;
+</span><span class='line'>    <span class="k">return </span>0;
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
 
-<pre><code>      switch(a)
-      {
-        case 1:
-        printf("case 1\n");
-        break;
-        if(a&gt;3)
-        {
-          case 2:
-          printf("case 2\n");
-          break;
-        }
-        default :
-        printf("default\n");
-        break;
-      }
-</code></pre>
 
-<p>}
-int main()
-{</p>
+<p>在Ubuntu下用clang和gcc分别编译后，得到的结果都一样，都是case 2</p>
 
-<pre><code>foo(2);
-return 0;
-                                                                                                }
-
-                                                                                                `
-
-                                                                                                在Ubuntu下用clang和gcc分别编译后，得到的结果都一样，具体是啥大家试一下哈。
-
-                                                                                                虽然上面这个代码片段有问题，但是可以成功地说明，switch的本质就是对条件的匹配！在它的内部是不能做if判断的。
-</code></pre>
+<p>虽然上面这个代码片段逻辑有问题，但是可以成功地说明，switch的本质就是对条件的匹配！在它的内部是不能做if判断的。</p>
 </div>
   
   
