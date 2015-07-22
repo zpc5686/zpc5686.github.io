@@ -4,7 +4,7 @@
   <title><![CDATA[Roc's Blog]]></title>
   <link href="http://zpc5686.github.io/atom.xml" rel="self"/>
   <link href="http://zpc5686.github.io/"/>
-  <updated>2015-07-22T20:53:56+08:00</updated>
+  <updated>2015-07-23T00:27:53+08:00</updated>
   <id>http://zpc5686.github.io/</id>
   <author>
     <name><![CDATA[Roc]]></name>
@@ -80,53 +80,153 @@ sof上关于这个函数的问题，只有5页，看完发现没有类似的问�
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Notes of Stanford iOS Dev]]></title>
-    <link href="http://zpc5686.github.io/blog/2015/01/20/notes-of-stanford-ios-dev/"/>
+    <title type="html"><![CDATA[Notes of iOS Programming]]></title>
+    <link href="http://zpc5686.github.io/blog/2015/01/20/notes-ios-dev/"/>
     <updated>2015-01-20T22:31:37+08:00</updated>
-    <id>http://zpc5686.github.io/blog/2015/01/20/notes-of-stanford-ios-dev</id>
-    <content type="html"><![CDATA[<p>以前在S的时候做过iOS的开发，但那时候总感觉自己学的不够扎实，基本上都是靠着githbub、stackoverflow以及apple的官方文档过来的，没有对iOS开发有一个系统对了解。</p>
+    <id>http://zpc5686.github.io/blog/2015/01/20/notes-ios-dev</id>
+    <content type="html"><![CDATA[<p>以前在SAP实习的的时候做过iOS的开发，但那时候感觉自己学的不够扎实，基本上都是靠着github、stackoverflow以及apple的官方文档过来的，
+没有对iOS开发有一个系统对了解。最近跟着big nerd ranch的iOS programming过一遍，书上比较散，在这里我把认为重要的记一下吧，能记多少是多少。</p>
 
-<h2>第一讲</h2>
+<h3>一个APP的构成</h3>
 
-<p>课程刚开始是一些闲话，需要一些前导课等等。后面提到一个APP分为4层，从下往上依次是
-* core os 一个unix内核，socket等等都封装在这一层
-* core services 数组、字典、GPS、多线程等等
-* media 视频图像处理等
-* Cocoa touch 各个控件，是高级对象</p>
+<p>一个能在手机上运行的APP，我们写的代码仅仅是它运行代码中很少的一部分。还有很多服务是cocoa和iOS为我们做的。</p>
 
-<h3>MVC 设计模式</h3>
-
-<p>MVC是iOS应用的设计模式
-* model与view之间永远不能通信
-* view与controller之间通信的时候用的target action方法，我们在手机上碰到某些控件的时候会触发一些事件。这些事件有will、should、did这三种响应</p>
-
-<h3>setter and getter</h3>
-
-<p>objective-c 将实例变量封装成了一个property。oc中所有对象都存于堆中，在栈上不能分配对象。
-<code>@property (strong) NSString *content</code>
-调用的时候card.content
-strong （reference countting） 只要有strong指针指向它时，就不会被销毁。
-weak 当没有strong pointer 指向它时 weak pointer变成nil，而且会销毁那块内存。</p>
-
-<p>nonatomic 线程不安全。getter和setter可以重命名。</p>
-
-<h3>学生提问</h3>
+<p>一个APP分为4层，从下往上依次是</p>
 
 <ul>
-<li>所有的对象都要被指针指着，</li>
-<li>可以用[ ]来调用getter和setter，但是不推荐</li>
-<li>除了getter和setter之外的方法不能用打点调用</li>
+<li>core os 一个unix内核，socket等等都封装在这一层</li>
+<li>core services 数组、字典、GPS、多线程等等</li>
+<li>media 视频图像处理等</li>
+<li>Cocoa touch 各个控件，是高级对象</li>
 </ul>
 
 
-<h2>第二讲</h2>
+<h3>MVC 设计模式</h3>
 
-<p>1、上来就写了一个新类 Deck。
-2、向NSMutableArray里插入nil后会使程序crash掉。
-3、property可以用来给getter重新起名字比如
-@property (nonatomic,getter=isMatched) BOOL matched;
-在这里使用getter的时候用self.isMatched，而使用setter的时候还是要永self.mathced;
-4、</p>
+<p>MVC是iOS应用的设计模式</p>
+
+<ul>
+<li>model与view之间永远不能通信</li>
+<li>view与controller之间通信的时候用的target action方法，我们在手机上碰到某些控件的时候会触发一些事件。</li>
+</ul>
+
+
+<p>这些事件有will、should、did这三种响应。</p>
+
+<p>现在又推出一种新的设计模式，mvvm模式，不过本书中并没有提到，关于mvvm最著名的iOS开源项目应该是ReactiveCocoa吧。</p>
+
+<h2>Objective-C 的基本知识</h2>
+
+<p>所有的对象都要被指针指着。</p>
+
+<h3>类</h3>
+
+<p>没有public 与 private 的修饰符，public的变量在.h文件中写，private的变量在类extension中写。</p>
+
+<h3>初始化方法</h3>
+
+<p>Objective-C 的一个类可以有很多种初始化方法，但是必须要有一个指定初始化方法，怎么指定呢，指定初始化方法的格式如下</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>self = [super init];
+</span><span class='line'>
+</span><span class='line'>if(self)
+</span><span class='line'>{
+</span><span class='line'>  // ivar init
+</span><span class='line'>}
+</span><span class='line'>return self
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>值得一提的是，BNR书中的类初始化方法是直接访问实例变量来进行初始化的。在写初始化方法的时候，我们需要记住命名规则要以init开头！</p>
+
+<h3>属性</h3>
+
+<p>Objective-C 将实例变量封装成了一个property。oc中所有对象都存于堆中，在栈上不能分配对象。
+可以用[ ]来调用getter和setter，但是不推荐。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>@property (nonatomic, strong) NSString *content
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>首先要理解实例变量和属性不是一回事情。</p>
+
+<p>实例变量英文是instant variable ，很多地方简写成ivar</p>
+
+<p>属性的英文是property。</p>
+
+<p>关于属性与实例变量的操作，具体要看runtime的源代码，这里就先不研究了。但是当程序既覆盖了一个属性的存方法，又覆盖了取方法时，编译器不会再为其自动创建实例变量，如果我们需要访问实例变量的话，需要自己创建。可以看出属性的本质其实就是编译器为我们自动创建了存取方法。</p>
+
+<p>一个property可以有多个修饰符，下面来分别谈谈这些修饰符。</p>
+
+<h4>内存管理特性</h4>
+
+<ul>
+<li>strong （reference countting） 只要有strong指针指向它时，就不会被销毁。</li>
+<li>weak 当没有strong pointer 指向它时 weak pointer变成nil，而且会销毁那块内存。</li>
+<li>copy 通常情况下，当某个属性是指向其他对象的指针，而且该对象的类有可被修改的子类(NSmutableString)时，应该将该对象设置为copy。block也是copy。如果自己写的类要实现copy 需要实现NSCopy的protocol</li>
+<li>unsafe_unretained 没有arc之前是assign，是默认的内存管理特性</li>
+</ul>
+
+
+<h4>多线程特性</h4>
+
+<p>nonatomic 线程不安全。但大多都选择atomic，atomic性能太差</p>
+
+<h4>读写特性</h4>
+
+<p>readwrite、readonly（没有setter方法了）</p>
+
+<p>property可以用来给getter重新起名字比如</p>
+
+<p>@property (nonatomic,getter=isMatched) BOOL matched;</p>
+
+<h3>视图</h3>
+
+<p>uiviewcontroller 的一个重要的属性是view。它负责控制view，大概代码是这样的</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>- (UIView *)view
+</span><span class='line'>{
+</span><span class='line'>  if (!_view) {
+</span><span class='line'>    [self loadView];
+</span><span class='line'>    [self viewDidLoad]; 
+</span><span class='line'>  }
+</span><span class='line'>}
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>当viewcontroller发现view是nil时，会调用loadview方法。</p>
+
+<ul>
+<li>viewWillAppear 在用户每次看到view的时候都会调用，与viewDidAppear相同（相应的disappear也一样），会被调用多次。</li>
+<li>viewDidLoad是在程序启动一次后设置对象，只会被调用一次。</li>
+</ul>
+
+
+<h3>Cocoa中一些重要的viewcontroller</h3>
+
+<ul>
+<li>UITableViewController(需实现 UITableViewDataSource 协议)</li>
+<li>UINavigationController</li>
+</ul>
+
+
+<p>后面书中还有很多内容，如自动化布局，GCD，core data等。比较有用的是TableViewCell的个性化设置与GCD吧。改天抽时间再写吧。
+这本书的内容到是挺广泛的，就是不太深入。</p>
 ]]></content>
   </entry>
   
