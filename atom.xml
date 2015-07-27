@@ -4,7 +4,7 @@
   <title><![CDATA[Roc's Blog]]></title>
   <link href="http://zpc5686.github.io/atom.xml" rel="self"/>
   <link href="http://zpc5686.github.io/"/>
-  <updated>2015-07-23T00:27:53+08:00</updated>
+  <updated>2015-07-27T22:14:03+08:00</updated>
   <id>http://zpc5686.github.io/</id>
   <author>
     <name><![CDATA[Roc]]></name>
@@ -12,6 +12,108 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Block in Objective-C]]></title>
+    <link href="http://zpc5686.github.io/blog/2015/07/27/block-in-objective-c/"/>
+    <updated>2015-07-27T22:09:07+08:00</updated>
+    <id>http://zpc5686.github.io/blog/2015/07/27/block-in-objective-c</id>
+    <content type="html"><![CDATA[<h2>Objective-C 中的block的应用</h2>
+
+<p>block 语法是从iOS4以后支持的，这项技术在其它语言中已经有类似的东西了，例如C# 中的lambda,python 中的closure等。可以说用block编程是一种大的趋势，现代编程语言中基本上都有匿名函数，我们也经常可以看到函数是一等公民这种说法。</p>
+
+<p>本文侧重于block的应用而非实现，block在底层的实现可以在<a href="http://www.devtang.com/blog/2013/07/28/a-look-inside-blocks/">这里</a>。</p>
+
+<h3>block的声明</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>void <span class="o">(</span>^plusOne<span class="o">)(</span>int a<span class="o">)</span>;
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这样就声明了一个block，但是每次都这样写太麻烦了，所以我们可以用typedef来定义block</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>typedef void<span class="o">(</span>^plusOne<span class="o">)(</span>int<span class="o">)</span>;
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这样就定义了一个叫plusOne的返回值是void，参数是int的block，下次再用的时候就不用写那么长的定义了。</p>
+
+<h3>block的使用</h3>
+
+<p>block是可以当做property的，这意味着它是可以被用来当参数传递的， 当定义block的property的时候需要将其属性定义成<code>copy</code>，这是因为我们需要将block拷贝一份到堆上。</p>
+
+<h5>__weak关键字</h5>
+
+<p>block对自己内部的对象是strong引用的，所以这里可能会引起retain cycle，所以当我们在block内部使用一个已经包含了该block的对象时候，需在block外面使用__weak关键字，以iOS programming书中的代码为例</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>__weak THItemCell* <span class="nv">weakcell</span> <span class="o">=</span> cell;
+</span><span class='line'>    cell.actionBlock<span class="o">=</span>^<span class="o">{</span>
+</span><span class='line'>        <span class="k">if</span> <span class="o">([[</span>UIDevice currentDevice<span class="o">]</span> userInterfaceIdiom <span class="o">]==</span> UIUserInterfaceIdiomPad <span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>            NSString* <span class="nv">itemKey</span> <span class="o">=</span> item.itemKey;
+</span><span class='line'>            THItemCell *strongCell <span class="o">=</span> weakcell;
+</span><span class='line'>            UIImage* <span class="nv">img</span> <span class="o">=</span> <span class="o">[[</span>THImageStore shareStore<span class="o">]</span>  imageForKey:itemKey<span class="o">]</span>;
+</span><span class='line'>
+</span><span class='line'>            <span class="k">if</span> <span class="o">(</span>!img<span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>                <span class="k">return</span> ;
+</span><span class='line'>            <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>            CGRect <span class="nv">rect</span> <span class="o">=</span> <span class="o">[</span>self.view convertRect:strongCell.thumbnailView.bounds fromView:strongCell.thumbnailView<span class="o">]</span>;
+</span><span class='line'>
+</span><span class='line'>            THImageViewController *ivc <span class="o">=</span> <span class="o">[[</span>THImageViewController alloc<span class="o">]</span>init  <span class="o">]</span>;
+</span><span class='line'>
+</span><span class='line'>            ivc.image <span class="o">=</span> img;
+</span><span class='line'>
+</span><span class='line'>            self.imagePopover <span class="o">=</span> <span class="o">[[</span>UIPopoverController alloc<span class="o">]</span> initWithContentViewController:ivc<span class="o">]</span>;
+</span><span class='line'>            self.imagePopover.delegate <span class="o">=</span> self;
+</span><span class='line'>            self.imagePopover.popoverContentSize <span class="o">=</span> CGSizeMake<span class="o">(</span>600, 600<span class="o">)</span>;
+</span><span class='line'>            <span class="o">[</span>self.imagePopover presentPopoverFromRect:rect inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES<span class="o">]</span>;
+</span><span class='line'>        <span class="o">}</span>
+</span><span class='line'>    <span class="o">}</span>;
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>可以看到在block中引用了cell，这时就需要在外部用weak关键字声明一下，以避免retain cycle。</p>
+
+<h5>__block关键字</h5>
+
+<p>在block内引用局部变量时，block自身是对变量的拷贝进行操作的，即使在block内部改变也是改变的变量的拷贝。如果在block内部修改了变量，编译器会报错。这时就需要在block外部使用__block关键字去修饰要改变的变量。</p>
+
+<h5>block的使用场景</h5>
+
+<p>一般来讲有两种使用场景：</p>
+
+<ol>
+<li>sdk 提供的很多函数中有completeHandler这种匿名调用的方式，在使用gcd时候也是属于这样的情况的。</li>
+<li>block当做property进行传递的。按照Single Responsibility的设计原则，一个类A应该负责其单一的功能，而某一功能的实现需要其他类B实现，这时可以在类A中定义一个block属性，将该property在类B中实现，然后在类A中，直接调用改block即可。</li>
+</ol>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Oci Problem]]></title>
