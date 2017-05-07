@@ -1,0 +1,271 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>You Dont Know Switch - Roc's Blog</title>
+  <meta name="author" content="Roc">
+
+  
+  <meta name="description" content="你可能不知道的switch switch语句是一个常用的分支语句，可以让代码更加直观。其实switch的功能是可以被if else替代的。使用switch可以让代码的结构更加清晰，就像新的swift 2.0中加入guard一样。为了增加代码的可读性。 不过switch有时候也会有点调皮， &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://zpc5686.github.io/blog/2014/09/12/you-dont-know-switch">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Roc's Blog" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Roc's Blog</a></h1>
+  
+    <h2>Never give up even at the worst time</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:zpc5686.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">About</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">You Dont Know Switch</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-09-12T23:21:44+08:00" pubdate data-updated="true">Sep 12<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h2>你可能不知道的switch</h2>
+
+<p>switch语句是一个常用的分支语句，可以让代码更加直观。其实switch的功能是可以被<code>if else</code>替代的。使用switch可以让代码的结构更加清晰，就像新的swift 2.0中加入<code>guard</code>一样。为了增加代码的可读性。</p>
+
+<p>不过switch有时候也会有点调皮，比如下面的代码</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>void foo<span class="o">(</span>int a<span class="o">)</span>
+</span><span class='line'><span class="o">{</span>
+</span><span class='line'>          switch<span class="o">(</span>a<span class="o">)</span>
+</span><span class='line'>          <span class="o">{</span>
+</span><span class='line'>            <span class="k">case </span>1:
+</span><span class='line'>            <span class="nb">printf</span><span class="o">(</span><span class="s2">&quot;case 1\n&quot;</span><span class="o">)</span>;
+</span><span class='line'>            <span class="nb">break</span>;
+</span><span class='line'>            <span class="k">if</span><span class="o">(</span>a&gt;3<span class="o">)</span>
+</span><span class='line'>            <span class="o">{</span>
+</span><span class='line'>              <span class="k">case </span>2:
+</span><span class='line'>              <span class="nb">printf</span><span class="o">(</span><span class="s2">&quot;case 2\n&quot;</span><span class="o">)</span>;
+</span><span class='line'>              <span class="nb">break</span>;
+</span><span class='line'>            <span class="o">}</span>
+</span><span class='line'>            default :
+</span><span class='line'>            <span class="nb">printf</span><span class="o">(</span><span class="s2">&quot;default\n&quot;</span><span class="o">)</span>;
+</span><span class='line'>            <span class="nb">break</span>;
+</span><span class='line'>          <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>int main<span class="o">()</span>
+</span><span class='line'><span class="o">{</span>
+</span><span class='line'>    foo<span class="o">(</span>2<span class="o">)</span>;
+</span><span class='line'>    <span class="k">return </span>0;
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>在Ubuntu下用clang和gcc分别编译后，得到的结果都一样，都是case 2</p>
+
+<p>虽然上面这个代码片段逻辑有问题，但是可以成功地说明，switch的本质就是对条件的匹配！在它的内部是不能做if判断的。</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Roc</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-09-12T23:21:44+08:00" pubdate data-updated="true">Sep 12<span>th</span>, 2014</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://zpc5686.github.io/blog/2014/09/12/you-dont-know-switch/" data-via="" data-counturl="http://zpc5686.github.io/blog/2014/09/12/you-dont-know-switch/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/08/26/config-vim-and-often-used-shortcuts-of-terminator/" title="Previous Post: Config Vim and Often Used Shortcuts of Terminator">&laquo; Config Vim and Often Used Shortcuts of Terminator</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2015/01/20/notes-ios-dev/" title="Next Post: Notes of iOS programming">Notes of iOS programming &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/07/27/block-in-objective-c/">Block in Objective-C</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/04/13/oci-problem/">Oci Problem</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/01/20/notes-ios-dev/">Notes of iOS Programming</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/09/12/you-dont-know-switch/">You Dont Know Switch</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/08/26/config-vim-and-often-used-shortcuts-of-terminator/">Config Vim and Often Used Shortcuts of Terminator</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2017 - Roc -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
